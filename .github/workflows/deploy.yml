@@ -20,6 +20,19 @@ defaults:
     shell: bash
 
 jobs:
+  envCheck:
+    name: 📝 Env check
+    steps:
+      - name: "check is AWS_ACCESS_KEY_ID exists"
+        env: 
+            aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        if: ${{ env.aws_access_key_id == '' }}
+        run: 'echo "echo the secret \"AWS_ACCESS_KEY_ID\" has not been made; echo please go to \"settings \> secrets \> actions\" to create it'
+      - name: "check is AWS_SECRET_ACCESS_KEY exists"
+        env: 
+            aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        if: ${{ env.aws_secret_access_key == '' }}
+        run: 'echo "echo the secret \"AWS_SECRET_ACCESS_KEY\" has not been made; echo please go to \"settings \> secrets \> actions\" to create it'
   lint:
     name: ⬣ ESLint
     runs-on: ubuntu-latest

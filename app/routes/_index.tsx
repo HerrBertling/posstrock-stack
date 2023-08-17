@@ -80,9 +80,9 @@ export default function Index() {
                 href: "https://aws.amazon.com/dynamodb/",
               },
               {
-                src: "https://user-images.githubusercontent.com/1500684/157990874-31f015c3-2af7-4669-9d61-519e5ecfdea6.svg",
-                alt: "Architect",
-                href: "https://arc.codes",
+                src: "https://d33wubrfki0l68.cloudfront.net/cc1e61abe8db8f1be699c2cf5adde992db3ab776/00968/img/logo.svg",
+                alt: "SST",
+                href: "https://sst.dev",
               },
               {
                 src: "https://user-images.githubusercontent.com/1500684/157764276-a516a239-e377-4a20-b44a-0ac7b65c8c14.svg",

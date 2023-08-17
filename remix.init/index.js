@@ -3,7 +3,6 @@ const crypto = require("crypto");
 const fs = require("fs/promises");
 const path = require("path");
 
-const { toLogicalID } = require("@architect/utils");
 const PackageJson = require("@npmcli/package-json");
 const inquirer = require("inquirer");
 const semver = require("semver");
@@ -116,7 +115,7 @@ const updatePackageJson = ({ APP_NAME, isTypeScript, packageJson }) => {
 const main = async ({ isTypeScript, packageManager, rootDirectory }) => {
   const FILE_EXTENSION = isTypeScript ? "ts" : "js";
 
-  const APP_ARC_PATH = path.join(rootDirectory, "./app.arc");
+  const SST_CONFIG_PATH = path.join(rootDirectory, "./sst.config.ts");
   const EXAMPLE_ENV_PATH = path.join(rootDirectory, ".env.example");
   const ENV_PATH = path.join(rootDirectory, ".env");
   const README_PATH = path.join(rootDirectory, "README.md");
@@ -140,7 +139,7 @@ const main = async ({ isTypeScript, packageManager, rootDirectory }) => {
     .replace(/[^a-zA-Z0-9-_]/g, "-");
 
   const [
-    appArc,
+    sstConfig,
     env,
     readme,
     deployWorkflow,
@@ -148,7 +147,7 @@ const main = async ({ isTypeScript, packageManager, rootDirectory }) => {
     vitestConfig,
     packageJson,
   ] = await Promise.all([
-    fs.readFile(APP_ARC_PATH, "utf-8"),
+    fs.readFile(SST_CONFIG_PATH, "utf-8"),
     fs.readFile(EXAMPLE_ENV_PATH, "utf-8"),
     fs.readFile(README_PATH, "utf-8"),
     readFileIfNotTypeScript(isTypeScript, DEPLOY_WORKFLOW_PATH, (s) =>
@@ -178,13 +177,13 @@ const main = async ({ isTypeScript, packageManager, rootDirectory }) => {
 `;
 
   const newReadme = readme
-    .replace(new RegExp("RemixGrungeStack", "g"), toLogicalID(APP_NAME))
+    .replace(new RegExp("RemixPoSSTrockStack", "g"), APP_NAME)
     .replace(initInstructions, "");
 
   const fileOperationPromises = [
     fs.writeFile(
-      APP_ARC_PATH,
-      appArc.replace("grunge-stack-template", APP_NAME)
+      SST_CONFIG_PATH,
+      sstConfig.replace("posstrock-stack", APP_NAME)
     ),
     fs.writeFile(ENV_PATH, newEnv),
     fs.writeFile(README_PATH, newReadme),
